@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>Home</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"></link>
+<link href="/css/app.css" rel="stylesheet" type="text/css"></link>
+</head>
+<body ng-app="myApp" class="ng-cloak">
+	<div class="generic-container" ng-controller="ActorController as ctrl">
+		<div class="panel panel-default">
+			<div class="text-center">
+				<h1>Welcome!</h1>
+				<p>
+					Click <a th:href="@{/ActorManagement}">here</a> to enter the store.
+				</p>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
