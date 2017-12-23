@@ -3,6 +3,7 @@ package isep.web.sakila.webapi.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -18,9 +19,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable();
-		http.authorizeRequests().antMatchers("/", "/home").permitAll().anyRequest().authenticated().and().formLogin()
-				.loginPage("/login").permitAll().and().logout().permitAll();
-		http.csrf().disable();
+//		http.authorizeRequests().antMatchers("/", "/home").permitAll().anyRequest().authenticated().and().formLogin()
+//				.loginPage("/login").permitAll().and().logout().permitAll();
+//		http.csrf().disable();
+		
+		//----------------Code de Simao---------------------------------
+		http.authorizeRequests()
+		.antMatchers("/auth/**").permitAll()
+		.antMatchers(HttpMethod.POST, "/auth/refresh_token").permitAll()
+		.antMatchers(HttpMethod.GET, "/auth/**").permitAll()
+		.antMatchers("/resources/**").permitAll();
+		//--------------------------------------------------------------
+		
 	}
 
 	@Autowired

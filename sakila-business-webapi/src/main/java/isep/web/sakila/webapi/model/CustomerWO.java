@@ -43,7 +43,7 @@ public class CustomerWO extends WebObject {
 		this.firstName = customer.getFirstName();
 		this.email = customer.getEmail();
 		this.address = customer.getAddress();
-		// this.store = customer.getStore();
+		//this.store = customer.getStore();
 		this.active = customer.getActive();
 		this.createDate = customer.getCreateDate();
 	}
@@ -115,7 +115,7 @@ public class CustomerWO extends WebObject {
 	@Override
 	public String toString() {
 		return "Customer [id=" + this.customerId + ", LastName=" + this.lastName + ", First=" + this.firstName
-				+ ", Email= " + this.email + ", Address= " + this.address + ", Active= " + this.active
+				+ ", Email= " + this.email + ", Address= " + this.address + ", Store= " + this.store + ", Active= " + this.active
 				+ ", CreateDate= " + this.createDate + "]";
 	}
 }

@@ -30,7 +30,7 @@ public class Actor implements Serializable {
 	private Timestamp lastUpdate;
 
 	// bi-directional many-to-one association to FilmActor
-	@OneToMany(mappedBy = "actor")
+	@OneToMany(targetEntity=FilmActor.class, cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "actor", orphanRemoval=true)
 	private List<FilmActor> filmActors;
 
 	public Actor() {

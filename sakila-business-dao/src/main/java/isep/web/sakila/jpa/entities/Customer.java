@@ -55,12 +55,12 @@ public class Customer implements Serializable {
 	private Store store;
 
 	//bi-directional many-to-one association to Payment
-	@OneToMany(mappedBy="customer")
+	@OneToMany(targetEntity=Payment.class, cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy= "customer", orphanRemoval=true)
 	@JsonIgnore
 	private List<Payment> payments;
 
 	//bi-directional many-to-one association to Rental
-	@OneToMany(mappedBy="customer")
+	@OneToMany(targetEntity=Rental.class, cascade=CascadeType.REMOVE, mappedBy="customer", orphanRemoval=true)
 	@JsonIgnore
 	private List<Rental> rentals;
 
