@@ -4,8 +4,7 @@ import java.util.List;
 
 import isep.web.sakila.webapi.model.CustomerWO;
 
-public interface CustomerService
-{
+public interface CustomerService {
 	CustomerWO findById(int id);
 
 	void saveCustomer(CustomerWO userWO);

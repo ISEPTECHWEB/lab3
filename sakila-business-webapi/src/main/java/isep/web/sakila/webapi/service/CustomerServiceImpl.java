@@ -51,11 +51,11 @@ public class CustomerServiceImpl implements CustomerService {
 		customer.setFirstName(customerWO.getFirstName());
 		customer.setEmail(customerWO.getEmail());
 
-		Address address = new Address();
-		customer.setAddress(address);
+		//Address address = new Address();
+		customer.setAddress(customerWO.getAddress());
 
-		Store store = new Store();
-		customer.setStore(store);
+		//Store store = new Store();
+		customer.setStore(customerWO.getStore());
 
 		customer.setActive(customerWO.getActive());
 

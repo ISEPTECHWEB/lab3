@@ -1,6 +1,8 @@
-import React, { Component } from "react";
+import React from 'react';
  
 class Home extends React.Component {
+
+
   render() {
     return (
       <div>
@@ -8,6 +10,8 @@ class Home extends React.Component {
 
             Welcome to your management page
         </p>
+
+
       </div>
     );
   }

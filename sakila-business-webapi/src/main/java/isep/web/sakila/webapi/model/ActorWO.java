@@ -54,6 +54,6 @@ public class ActorWO extends WebObject {
 
 	@Override
 	public String toString() {
-		return "Actor [id=" + this.actorId + ", LastNanem=" + this.lastName + ", First=" + this.firstName + "]";
+		return "Actor [id=" + this.actorId + ", LastName=" + this.lastName + ", FirstName=" + this.firstName + "] ";
 	}
 }

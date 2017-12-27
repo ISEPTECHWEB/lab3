@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import RaisedButton from 'material-ui/RaisedButton';
-import {
-  Table,
-  TableBody,
-  TableHeader,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn,
-} from 'material-ui/Table';
+import {TableRow, TableRowColumn} from 'material-ui/Table';
 
 
 class Actor extends Component {
+  
+  fillActor = () => {
+    this.props.fillActor(this.props.actorId, this.props.firstName, this.props.lastName);
+  }
+  deleteActor = () => {
+    this.props.deleteActor(this.props.actorId);
+  }
+
   render() {
     return (
 
@@ -20,8 +20,8 @@ class Actor extends Component {
         <TableRowColumn>{this.props.firstName}</TableRowColumn>
         <TableRowColumn>{this.props.lastName}</TableRowColumn>
         <TableRowColumn> 
-          <RaisedButton label="Edit" primary={true}/> 
-          <RaisedButton label="Delete" secondary={true}/> 
+          <RaisedButton onClick={this.fillActor} label="Edit" primary={true}/> 
+          <RaisedButton onClick={this.deleteActor} label="Delete" secondary={true}/> 
         </TableRowColumn>
       </TableRow>
          

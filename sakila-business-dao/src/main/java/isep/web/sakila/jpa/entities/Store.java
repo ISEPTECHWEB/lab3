@@ -49,6 +49,7 @@ public class Store implements Serializable {
 
 	//bi-directional many-to-one association to Staff
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name="manager_staff_id", nullable=false)
 	private Staff staff;
 
@@ -114,7 +115,7 @@ public class Store implements Serializable {
 
 		return inventory;
 	}
-
+	
 	public List<Staff> getStaffs() {
 		return this.staffs;
 	}
@@ -144,7 +145,7 @@ public class Store implements Serializable {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
-
+	
 	public Staff getStaff() {
 		return this.staff;
 	}

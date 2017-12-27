@@ -43,7 +43,7 @@ public class CustomerWO extends WebObject {
 		this.firstName = customer.getFirstName();
 		this.email = customer.getEmail();
 		this.address = customer.getAddress();
-		//this.store = customer.getStore();
+		this.store = customer.getStore();
 		this.active = customer.getActive();
 		this.createDate = customer.getCreateDate();
 	}

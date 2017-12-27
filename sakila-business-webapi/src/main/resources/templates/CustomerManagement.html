@@ -95,7 +95,60 @@
                               </div>
                           </div>
                       </div>
-
+                   
+                      <div class="row">
+                          <div class="form-group col-md-12">
+                              <label class="col-md-2 control-lable" for="file">Address</label>
+                              <div class="col-md-3">
+                                  <input type="text" ng-model="ctrl.customer.address.address" name="address"  class="form-control input-sm" placeholder="Enter address"/>
+                                  <div class="has-error" ng-show="myForm.$dirty">
+                                      <span ng-show="myForm.firstName.$error.required">This is a required field</span>
+                                  </div>
+                              </div>
+                              <div class="col-md-3">
+                                  <input type="text" ng-model="ctrl.customer.address.address2" name="address2"  class="form-control input-sm" placeholder="Enter address2"/>
+                                  <div class="has-error" ng-show="myForm.$dirty">
+                                      <span ng-show="myForm.firstName.$error.required">This is a required field</span>
+                                  </div>
+                              </div>
+                              <div class="col-md-3">
+                                  <input type="text" ng-model="ctrl.customer.address.district" name="district"  class="form-control input-sm" placeholder="Enter disctrict"/>
+                                  <div class="has-error" ng-show="myForm.$dirty">
+                                      <span ng-show="myForm.firstName.$error.required">This is a required field</span>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="form-group col-md-12">
+                              <label class="col-md-2 control-lable" for="file"></label>
+                              <div class="col-md-3">
+                                  <input type="text" ng-model="ctrl.customer.address.postalCode" name="postalCode"  class="form-control input-sm" placeholder="Enter postalCode"/>
+                                  <div class="has-error" ng-show="myForm.$dirty">
+                                      <span ng-show="myForm.firstName.$error.required">This is a required field</span>
+                                  </div>
+                              </div>
+                              <div class="col-md-3">
+                                  <input type="text" ng-model="ctrl.customer.address.city" name="city"  class="form-control input-sm" placeholder="Enter city"/>
+                                  <div class="has-error" ng-show="myForm.$dirty">
+                                      <span ng-show="myForm.firstName.$error.required">This is a required field</span>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      
+                      <div class="row">
+                          <div class="form-group col-md-12">
+                              <label class="col-md-2 control-lable" for="file">Phone</label>
+                              <div class="col-md-4">
+                                  <input type="text" ng-model="ctrl.customer.address.phone" name="email"  class="form-control input-sm" placeholder="Enter phone"/>
+                                  <div class="has-error" ng-show="myForm.$dirty">
+                                      <span ng-show="myForm.firstName.$error.required">This is a required field</span>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      
                       <div class="row">
                           <div class="form-actions floatRight">
                               <input type="submit"  value="{{!ctrl.customer.customerId ? 'Add' : 'Update'}}" class="btn btn-primary btn-sm" ng-disabled="myForm.$invalid"></input>
@@ -118,6 +171,7 @@
                               <th>Email</th>
                               <th>Address</th>
                               <th>Active</th>
+                              <th>Store</th>
                               <th width="20%"></th>
                           </tr>
                       </thead>
@@ -129,10 +183,12 @@
                               <td><span ng-bind="u.email"></span></td>
                               <td>
                               	<span ng-bind="u.address.address"></span>
+                              	<span ng-bind="u.address.address2"></span>
                               	<span ng-bind="u.address.postalCode"></span>
                               	<span ng-bind="u.address.city.city"></span>
                               </td>
                               <td><span ng-bind="u.active"></span></td>
+                              <td><span ng-bind="u.store.storeId"></span></td>
                               <td>
                               <button type="button" ng-click="ctrl.edit(u.customerId)" class="btn btn-success custom-width">Edit</button>  <button type="button" ng-click="ctrl.remove(u.customerId)" class="btn btn-danger custom-width">Remove</button>
                               </td>

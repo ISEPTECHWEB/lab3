@@ -14,5 +14,4 @@ public interface ActorService {
 	void deleteActorById(int id);
 
 	List<ActorWO> findAllActors();
-
 }
