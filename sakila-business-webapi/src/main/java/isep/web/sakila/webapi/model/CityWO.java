@@ -1,7 +1,6 @@
 package isep.web.sakila.webapi.model;
 
 import isep.web.sakila.jpa.entities.City;
-import isep.web.sakila.jpa.entities.Country;
 
 public class CityWO extends WebObject{
 	
@@ -9,13 +8,13 @@ public class CityWO extends WebObject{
 	
 	protected int cityId;
 	protected String city;
-	protected Country country;
+	protected CountryWO country;
 	
 	public CityWO() {
 		super();
 	}
 	
-	public CityWO(int cityId, String city,  Country country) {
+	public CityWO(int cityId, String city,  CountryWO country) {
 		super();
 		this.cityId = cityId;
 		this.city = city;
@@ -26,7 +25,7 @@ public class CityWO extends WebObject{
 		super();
 		this.cityId = city.getCityId();
 		this.city = city.getCity();
-		this.country = city.getCountry();
+		this.country= new CountryWO(city.getCountry());
 	}
 
 	public int getCityId() {
@@ -45,11 +44,11 @@ public class CityWO extends WebObject{
 		this.city = city;
 	}
 
-	public Country getCountry() {
+	public CountryWO getCountry() {
 		return country;
 	}
 
-	public void setCountry(Country country) {
+	public void setCountry(CountryWO country) {
 		this.country = country;
 	}
 	

@@ -11,9 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import isep.web.sakila.dao.repositories.CustomerRepository;
-import isep.web.sakila.jpa.entities.Address;
 import isep.web.sakila.jpa.entities.Customer;
-import isep.web.sakila.jpa.entities.Store;
 import isep.web.sakila.webapi.model.CustomerWO;
 
 @Service("customerService")
@@ -51,10 +49,10 @@ public class CustomerServiceImpl implements CustomerService {
 		customer.setFirstName(customerWO.getFirstName());
 		customer.setEmail(customerWO.getEmail());
 
-		//Address address = new Address();
-		customer.setAddress(customerWO.getAddress());
+//		Address address = new Address();
+//		customer.setAddress(customerWO.getAddress());
 
-		//Store store = new Store();
+//		Store store = new Store();
 		customer.setStore(customerWO.getStore());
 
 		customer.setActive(customerWO.getActive());
@@ -70,7 +68,7 @@ public class CustomerServiceImpl implements CustomerService {
 		customer2update.setFirstName(customerWO.getFirstName());
 		customer2update.setEmail(customerWO.getEmail());
 
-		customer2update.setAddress(customerWO.getAddress());
+//		customer2update.setAddress(customerWO.getAddress());
 		customer2update.setStore(customerWO.getStore());
 
 		customer2update.setActive(customerWO.getActive());

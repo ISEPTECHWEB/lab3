@@ -46,14 +46,14 @@ public class SakilaBusinessWebapiApplicationTests {
 	@Autowired
 	private StoreService storeService;
 	
-//	@Test
+	@Test
 	public void testAddActor() {
 		ActorWO actorFound = actorService.findById(237);
 		actorFound.setLastName("SMET");
 		actorService.saveActor(actorFound);
 	}
 	
-//	@Test
+	@Test
 	public void testFindAllActors() {
 		List<ActorWO> actors = actorService.findAllActors();
 		System.out.printf("----------------------------------------\n");
@@ -63,7 +63,7 @@ public class SakilaBusinessWebapiApplicationTests {
 		}
 	}
 	
-//	@Test
+	@Test
 	public void testFindAllCustomers() {
 		List<CustomerWO> customers = customerService.findAllCustomers();
 		System.out.printf("----------------------------------------\n");
@@ -73,7 +73,7 @@ public class SakilaBusinessWebapiApplicationTests {
 		}
 	}
 	
-//	@Test
+	@Test
 	public void testFindAllAddresses() {
 		List<AddressWO> addresses = addressService.findAllAddresses();
 		System.out.printf("----------------------------------------\n");
@@ -83,7 +83,7 @@ public class SakilaBusinessWebapiApplicationTests {
 		}
 	}
 	
-//	@Test
+	//@Test
 	public void testAddAddress() {
 		AddressWO address = addressService.findById(1);
 		address.setAddress("666");
@@ -100,7 +100,7 @@ public class SakilaBusinessWebapiApplicationTests {
 		}
 	}
 	
-//	@Test
+	@Test
 	public void testFindAllCountrys() {
 		List<CountryWO> countrys = countryService.findAllCountrys();
 		System.out.printf("----------------------------------------\n");
@@ -110,7 +110,7 @@ public class SakilaBusinessWebapiApplicationTests {
 		}
 	}
 	
-//	@Test
+	@Test
 	public void testFindAllStores() {
 		List<StoreWO> stores = storeService.findAllStores();
 		System.out.printf("----------------------------------------\n");
@@ -123,7 +123,7 @@ public class SakilaBusinessWebapiApplicationTests {
 	@Test
 	public void testUpdateCustomer() {
 		CustomerWO customerFound = customerService.findById(237);
-		
+		customerFound.setLastName("ED");
 		customerService.updateCustomer(customerFound);
 	}
 

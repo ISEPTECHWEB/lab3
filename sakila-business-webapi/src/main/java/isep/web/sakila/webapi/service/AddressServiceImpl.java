@@ -51,7 +51,7 @@ public class AddressServiceImpl implements AddressService{
 		address.setDistrict(addressWO.getDistrict());
 		address.setPhone(addressWO.getPhone());
 		address.setPostalCode(addressWO.getPostalCode());
-		address.setCity(addressWO.getCity());
+		// address.setCity(addressWO.getCity());
 		address.setLastUpdate(new Timestamp(System.currentTimeMillis()));
 		addressRepository.save(address);
 	}
@@ -63,7 +63,7 @@ public class AddressServiceImpl implements AddressService{
 		address2update.setDistrict(addressWO.getDistrict());
 		address2update.setPhone(addressWO.getPhone());
 		address2update.setPostalCode(addressWO.getPostalCode());
-		address2update.setCity(addressWO.getCity());
+		// address2update.setCity(addressWO.getCity());
 		address2update.setLastUpdate(new Timestamp(System.currentTimeMillis()));
 		addressRepository.save(address2update);
 	}

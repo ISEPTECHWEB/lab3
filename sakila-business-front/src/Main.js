@@ -16,7 +16,7 @@ class Main extends Component {
   constructor(){
     super();
     this.state={
-      isLoggedIn: true,
+      isLoggedIn: false,
       authFailed: false,
       open: false,
       name: "",

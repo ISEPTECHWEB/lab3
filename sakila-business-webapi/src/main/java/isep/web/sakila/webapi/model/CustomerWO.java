@@ -2,7 +2,6 @@ package isep.web.sakila.webapi.model;
 
 import java.util.Date;
 
-import isep.web.sakila.jpa.entities.Address;
 import isep.web.sakila.jpa.entities.Customer;
 import isep.web.sakila.jpa.entities.Store;
 
@@ -14,7 +13,7 @@ public class CustomerWO extends WebObject {
 	protected String lastName;
 	protected String firstName;
 	protected String email;
-	protected Address address;
+	protected AddressWO address;
 	protected Store store;
 	protected byte active;
 	protected Date createDate;
@@ -23,7 +22,7 @@ public class CustomerWO extends WebObject {
 		super();
 	}
 
-	public CustomerWO(int customerId, String lastName, String firstName, String email, Address address, Store store,
+	public CustomerWO(int customerId, String lastName, String firstName, String email, AddressWO address, Store store,
 			byte active, Date createDate) {
 		super();
 		this.customerId = customerId;
@@ -42,7 +41,7 @@ public class CustomerWO extends WebObject {
 		this.lastName = customer.getLastName();
 		this.firstName = customer.getFirstName();
 		this.email = customer.getEmail();
-		this.address = customer.getAddress();
+		this.address = new AddressWO(customer.getAddress());
 		this.store = customer.getStore();
 		this.active = customer.getActive();
 		this.createDate = customer.getCreateDate();
@@ -64,7 +63,7 @@ public class CustomerWO extends WebObject {
 		return email;
 	}
 
-	public Address getAddress() {
+	public AddressWO getAddress() {
 		return address;
 	}
 
@@ -96,7 +95,7 @@ public class CustomerWO extends WebObject {
 		this.email = email;
 	}
 
-	public void setAddress(Address address) {
+	public void setAddress(AddressWO address) {
 		this.address = address;
 	}
 
