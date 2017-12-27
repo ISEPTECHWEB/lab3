@@ -1,15 +1,15 @@
 import axios from 'axios';
 
-    //Constante choiceHelper contenant les méthodes principales utilisée pour modifier les listes de choix
+    //Constante customerHelper contenant les requêtes axios et les méthodes principales utilisées par le composant Client
     const customerHelper = {
 
-        //Ajout d'un choix à la liste
+        //Suppression
         deleteRequest: (id) => 
         {
             return axios.get('http://localhost:8080/customerDelete/'+ id);
         },
 
-
+        //Mise à jour
         updateRequest: (id, firstName, lastName, address) => 
         {
             return axios.post('http://localhost:8080/customerUpdate/',
@@ -20,7 +20,7 @@ import axios from 'axios';
             })
         },
 
-
+        //Création
         createRequest: (firstName, lastName, address) => 
         {
             return axios.post('http://localhost:8080/customer/',
@@ -31,11 +31,12 @@ import axios from 'axios';
             })
         },
 
-        
+        //Chargement
         loadRequest: () =>{
             return axios.get('http://localhost:8080/customer/');
         },
         
+        //Création de l'objet adresse tel qu'il doit être envoyé dans les requête axios
         createAddressObject: (address, district, city, postalCode, country, phone) => {
             var addressObject = {
                             address: address,

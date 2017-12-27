@@ -1,15 +1,15 @@
 import axios from 'axios';
 
-    //Constante choiceHelper contenant les méthodes principales utilisée pour modifier les listes de choix
+    //Constante actorHelper contenant les requêtes axios utilisées par le composant Acteurs
     const actorHelper = {
 
-        //Ajout d'un choix à la liste
+        //Suppression
         deleteRequest: (id) => 
         {
             return axios.get('http://localhost:8080/actorDelete/'+ id);
         },
 
-
+        //Mise à jour
         updateRequest: (id, firstName, lastName) => 
         {
             return axios.post('http://localhost:8080/actorUpdate/',
@@ -18,7 +18,7 @@ import axios from 'axios';
                 lastName: lastName })
         },
 
-
+        //Création
         createRequest: (firstName, lastName) => 
         {
             return axios.post('http://localhost:8080/actor/',
@@ -29,7 +29,7 @@ import axios from 'axios';
             )
         },
 
-        
+        //Chargement
         loadRequest: () =>{
             return axios.get('http://localhost:8080/actor/');
         } 

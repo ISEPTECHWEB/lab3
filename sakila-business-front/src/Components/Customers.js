@@ -10,10 +10,14 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import {componentsHelper} from '../Helpers/ComponentsHelper';
 
+//Composant Clients
 class Customers extends Component {
 
     constructor(){
         super();
+        /* Etat : clients chargés ou non, 
+        id, prénom,nom, email, status, téléphone et éléments d'adresse 
+        du client sélectionné, modif en cours ou non*/
         this.state = {
             customers : null,
             customerId : null,
@@ -31,33 +35,14 @@ class Customers extends Component {
         }
     }
 
-    // addressBis:{
-    //     address:"68 Molodetno Manor",
-    //     address2:"",
-    //     addressId:205,
-    //     city: 
-    //         {city:"Witten",
-    //         cityId:575,
-    //         country:{countryId: 38, country: "Germany", lastUpdate: 1139975040000},
-    //         lastUpdate:1139975125000
-    //     },
-    //     district:"Nordrhein-Westfalen",
-    //     lastUpdate:1411677066000,
-    //     phone:"146640639760",
-    //     postalCode:"4662"
-    // },
-    // createDate: 1139951076000,
-    // store:null,
-
+    //Rendu des champs
     renderFields(){
         return(
+
           <Paper className="addBlocCustomer">
 
-            <SelectField
-                floatingLabelText="Status"
-                value={this.state.active}
-                onChange={this.changeActive}
-                >
+            {/*----------- Champs --------------*/}
+            <SelectField floatingLabelText="Status" value={this.state.active} onChange={this.changeActive}>
                 <MenuItem value={0} primaryText="Inactive" />
                 <MenuItem value={1} primaryText="Active" />
             </SelectField>
@@ -69,13 +54,17 @@ class Customers extends Component {
                 floatingLabelText="First name"
                 onChange={this.changeFirstName}
                 value={this.state.firstName}
+                onKeyDown={this.testEnterKey}
             /> 
+
             <TextField
                 hintText="Enter your last name"
                 floatingLabelText="Last name"
                 onChange={this.changeLastName}
                 value={this.state.lastName}
+                onKeyDown={this.testEnterKey}
             /> 
+
             <br/>
 
             <TextField
@@ -83,26 +72,33 @@ class Customers extends Component {
                 floatingLabelText="Email"
                 onChange={this.changeEmail}
                 value={this.state.email}
+                onKeyDown={this.testEnterKey}
             /> 
+
             <TextField
                 hintText="Enter your phone number"
                 floatingLabelText="Phone number"
                 onChange={this.changePhone}
                 value={this.state.phone}
+                onKeyDown={this.testEnterKey}
             /> 
 
             <h4 className="titlesDiv">ADDRESS</h4>
+
             <TextField
                 hintText="Enter your address"
                 floatingLabelText="Address"
                 onChange={this.changeAddress}
                 value={this.state.address}
+                onKeyDown={this.testEnterKey}
             /> 
+
             <TextField
                 hintText="Enter your district"
                 floatingLabelText="District"
                 onChange={this.changeDistrict}
                 value={this.state.district}
+                onKeyDown={this.testEnterKey}
             /> 
 
             <TextField
@@ -110,6 +106,7 @@ class Customers extends Component {
                 floatingLabelText="City"
                 onChange={this.changeCity}
                 value={this.state.city}
+                onKeyDown={this.testEnterKey}
             /> 
 
             <br/>
@@ -119,6 +116,7 @@ class Customers extends Component {
                 floatingLabelText="Postal code"
                 onChange={this.changePostalCode}
                 value={this.state.postalCode}
+                onKeyDown={this.testEnterKey}
             /> 
 
             <TextField
@@ -126,30 +124,40 @@ class Customers extends Component {
                 floatingLabelText="Country"
                 onChange={this.changeCountry}
                 value={this.state.country}
+                onKeyDown={this.testEnterKey}
             /> 
 
-
             <br/>
-            {this.state.pending ? <CircularProgress className="loadProgress" size={25} thickness={3} />: ""}
 
+            {/* Ajout d'un symbole de chargement d'un create ou update */}
+            {this.state.pending ? <CircularProgress className="loadProgress" size={25} thickness={3} /> : ""}
+
+            {/*---------------- Boutons de update/create et reset ---------------------*/}
             <RaisedButton
                 label={this.state.customerId? "Update" : "Create"}
-                primary={
+                //Bouton bleu si tous les champs sont remplis
+                primary={ 
                     (componentsHelper.verifyFieldsNotNull(
-                        [this.state.firstName, this.state.lastName, this.state.email, this.state.address], false)
-                    ) 
-                    ? false : true}
-                disabled={(componentsHelper.verifyFieldsNotNull(
-                    [this.state.firstName, this.state.lastName, this.state.email, this.state.address], false)
-                )  ? true : false}
+                        [this.state.firstName, this.state.lastName, this.state.email, this.state.address], false)) 
+                    ? false : true }
+                //Bouton grisé si aucun champ n'est rempli
+                disabled={
+                    (componentsHelper.verifyFieldsNotNull(
+                        [this.state.firstName, this.state.lastName, this.state.email, this.state.address], false))  
+                    ? true : false}
+                //Update ou create au clic
                 onClick={this.state.customerId? this.updateCustomer : this.createActor}
             />
+
             <RaisedButton
                 label="Reset"
-                secondary={true}
-                disabled={(componentsHelper.verifyFieldsNotNull(
-                    [this.state.firstName, this.state.lastName, this.state.email, this.state.address], true)
-                )  ? true : false}
+                secondary={true} //Bouton rouge
+                //Bouton grisé si aucun champ n'est rempli
+                disabled={
+                    (componentsHelper.verifyFieldsNotNull(
+                        [this.state.firstName, this.state.lastName, this.state.email, this.state.address], true))  
+                    ? true : false}
+                //Reset au clic
                 onClick={this.resetFields}
             />
 
@@ -157,149 +165,225 @@ class Customers extends Component {
         );
     }
 
-renderCustomer = () => this.state.customers ? 
-this.state.customers.map(t =><Customer key={t.customerId} id={t.customerId} {...t} 
-    fillCustomer={this.fillCustomer} deleteCustomer={this.deleteCustomer} />) 
-: <TableRow>
-<TableRowColumn> <CircularProgress /> </TableRowColumn>
-<TableRowColumn> <CircularProgress /> </TableRowColumn>
-<TableRowColumn ><CircularProgress /> </TableRowColumn>
-<TableRowColumn ><CircularProgress /> </TableRowColumn>
-<TableRowColumn> <CircularProgress /> </TableRowColumn>
-<TableRowColumn> <CircularProgress /> </TableRowColumn>
-<TableRowColumn>  </TableRowColumn>
-</TableRow>;
+    //Affichage des clients 
+    renderCustomers = () => this.state.customers ? 
+        //Affichage des clients si le chargement est fait
+        this.state.customers.map(
+                        t => <Customer key={t.customerId} id={t.customerId} {...t} 
+                            fillCustomer={this.fillCustomer} deleteCustomer={this.deleteCustomer} />
+                        ) 
+        : //Sinon affichage de symboles de chargement dans les cases contenant du texte
+        <TableRow>
+            <TableRowColumn> <CircularProgress /> </TableRowColumn>
+            <TableRowColumn> <CircularProgress /> </TableRowColumn>
+            <TableRowColumn ><CircularProgress /> </TableRowColumn>
+            <TableRowColumn ><CircularProgress /> </TableRowColumn>
+            <TableRowColumn> <CircularProgress /> </TableRowColumn>
+            <TableRowColumn> <CircularProgress /> </TableRowColumn>
+            <TableRowColumn>                      </TableRowColumn>
+        </TableRow>
+        ;
 
-changeFirstName = (e) => {
-    this.setState({firstName: e.target.value});
-}
-changeLastName = (e) => {
-    this.setState({lastName: e.target.value});
-}
-changeEmail = (e) => {
-    this.setState({email: e.target.value});
-}
-changeActive = (e) => {
-    console.log(e.target.innerHTML);
-    var active = e.target.innerHTML === "Active" ? 1 : 0;
-    this.setState({active: active});
-}
-changeAddress = (e) => {
-    this.setState({address: e.targetValue});
-}
-changeCity = (e) => {
-    this.setState({city: e.targetValue});
-}
-changeDistrict = (e) => {
-    this.setState({district: e.targetValue});
-}
-changePostalCode = (e) => {
-    this.setState({postalCode: e.targetValue});
-}
-changeCountry = (e) => {
-    this.setState({country: e.targetValue});
-}
-changePhone = (e) => {
-    this.setState({phone: e.targetValue});
-}
+    //--------- MISE A JOUR CHAMPS ----------
 
-updateCustomer = () => {
-    this.setState({pending: true});
-    var address = customerHelper.createAddressObject(this.state.address, this.state.district,
-        this.state.city, this.state.postalCode, this.state.country);
-    customerHelper.updateRequest(this.state.customerId, this.state.firstName, this.state.lastName, address)
-    .then((response)=>{
-        setTimeout(()=>{
-        console.log('Update');
-        this.loadCustomers();
-        this.resetFields();}, 5);
-    }).catch((error)=>{
-        this.setState({pending: false})
-    });
-}
-
-deleteCustomer = (id) => {
-    customerHelper.deleteRequest(id).then((response)=>{
-        console.log('Delete');
-        this.loadCustomers();
-    }).catch((error)=>{
-
-    });
-}
-
-createActor = () => {
-    var address = customerHelper.createAddressObject(this.state.address, this.state.district,
-        this.state.city, this.state.postalCode, this.state.country);
-    customerHelper.createRequest(this.state.firstName,this.state.lastName, address)
-    .then((response)=>{
-        console.log('Create');
-        this.loadActors();
-        this.resetFields();
-    }).catch((error)=>{
-        this.setState({pending: false})
-    });
-}
-
-fillCustomer = (id, first, last, email, active, address) => {
-    this.setState({customerId: id});
-    this.setState({firstName: first});
-    this.setState({lastName: last});
-    this.setState({email: email});
-    this.setState({active: active});
-    this.setState({address: address.address});
-    this.setState({city: address.city.city});
-    this.setState({postalCode: address.postalCode});
-    this.setState({district: address.district});
-    this.setState({country: address.city.country.country});
-    this.setState({phone: address.phone});
-}
-
-resetFields = () => {
-    var emptyAddress = customerHelper.createAddressObject("", "", "", "", "", "");
-    this.fillCustomer(null, "", "", "", "", emptyAddress);
-}
-
-    render() {
-        return(
-            <div>
-            {this.renderFields()}
-            <Paper>
-            <Table fixedHeader={true} height="600px">
-                <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-                <TableRow>
-                    <TableHeaderColumn>ID</TableHeaderColumn>
-                    <TableHeaderColumn>First Name</TableHeaderColumn>
-                    <TableHeaderColumn>Last Name</TableHeaderColumn>
-                    <TableHeaderColumn>Email</TableHeaderColumn>
-                    <TableHeaderColumn>Address</TableHeaderColumn>
-                    <TableHeaderColumn>Phone</TableHeaderColumn>
-                    <TableHeaderColumn></TableHeaderColumn>
-                </TableRow>
-                </TableHeader>
-                <TableBody displayRowCheckbox={false}>
-                {this.renderCustomer()}
-                </TableBody>
-            </Table>
-            </Paper></div>
-        );
+    //Mise à jour du prénom 
+    changeFirstName = (e) => {
+        this.setState({firstName: e.target.value});
     }
 
+    //Mise à jour du nom 
+    changeLastName = (e) => {
+        this.setState({lastName: e.target.value});
+    }
 
-    loadCustomers(){
-        customerHelper.loadRequest()
-        .then((response)=>{
-            this.setState({customers: response.data})
-            console.log(response.data);
-            this.setState({pending: false})
-        }).catch((error)=>{
-            this.setState({pending: false})
+    //Mise à jour de l'email 
+    changeEmail = (e) => {
+        this.setState({email: e.target.value});
+    }
+
+    //Mise à jour du status 
+    changeActive = (e) => {
+        var active = e.target.innerHTML === "Active" ? 1 : 0;
+        this.setState({active: active});
+    }
+
+    //Mise à jour de l'adresse 
+    changeAddress = (e) => {
+        this.setState({address: e.target.value});
+    }
+
+    //Mise à jour de la ville 
+    changeCity = (e) => {
+        this.setState({city: e.target.value});
+    }
+
+    //Mise à jour du district 
+    changeDistrict = (e) => {
+        this.setState({district: e.target.value});
+    }
+
+    //Mise à jour du code postal 
+    changePostalCode = (e) => {
+        this.setState({postalCode: e.target.value});
+    }
+
+    //Mise à jour du pays 
+    changeCountry = (e) => {
+        this.setState({country: e.target.value});
+    }
+
+    //Mise à jour du numéro de téléphone 
+    changePhone = (e) => {
+        this.setState({phone: e.target.value});
+    }
+
+    //----------- UPDATE/ CREATE/ DELETE ------------
+    updateCustomer = () => {
+        this.setState({pending: true}); //Affichage du symbole chargement => enlevé après chargement des clients
+        
+        //Création de l'objet adresse
+        var address = customerHelper.createAddressObject(this.state.address, this.state.district,
+            this.state.city, this.state.postalCode, this.state.country);
+
+        //Requête axios pour l'update
+        customerHelper.updateRequest(this.state.customerId, this.state.firstName, this.state.lastName, address)
+            .then((response)=>{
+
+                //Timer avant les opérations pour que le symbole chargement s'affiche
+                setTimeout(()=>{ //En cas de succès
+                    console.log('Update');
+                    this.loadCustomers(); //Rechargement des clients
+                    this.resetFields(); //Vidage des champs
+                }, 5);
+            })
+            .catch((error)=>{ //En cas d'échec
+                this.setState({pending: false}) //On enlève le symbole chargement
+            });
+    }
+
+    //Suppression d'un client
+    deleteCustomer = (id) => {
+        //Requête axios pour la suppression
+        customerHelper.deleteRequest(id).then((response)=>{ //Succès
+            console.log('Delete');
+            this.loadCustomers(); //Rechargement des clients
+        })
+        .catch((error)=>{
         });
     }
 
+    //Création d'un client
+    createActor = () => {
+
+        var address = customerHelper.createAddressObject(this.state.address, this.state.district,
+            this.state.city, this.state.postalCode, this.state.country); //Symbole chargement
+
+        //Requête axios pour la création
+        customerHelper.createRequest(this.state.firstName,this.state.lastName, address)
+        .then((response)=>{
+            //Timer pour affichage du symbole chargement
+            setTimeout(()=>{
+                console.log('Create');
+                this.loadActors(); //Rechargement clients
+                this.resetFields(); //Vidage des champs
+            }, 5);
+        }).catch((error)=>{
+            this.setState({pending: false}); //Disparition symbole chargement
+        });
+    }
+
+    //----- FONCTIONS ANNEXES ------
+
+    //Fonction remplissage des champs acteurs
+    fillCustomer = (id, first, last, email, active, address) => {
+        this.setState({customerId: id});
+        this.setState({firstName: first});
+        this.setState({lastName: last});
+        this.setState({email: email});
+        this.setState({active: active});
+        this.setState({address: address.address});
+        this.setState({city: address.city.city});
+        this.setState({postalCode: address.postalCode});
+        this.setState({district: address.district});
+        this.setState({country: address.city.country.country});
+        this.setState({phone: address.phone});
+    }
+
+    //Fonction vidage des champs
+    resetFields = () => {
+        var emptyAddress = customerHelper.createAddressObject("", "", "", "", "", "");
+        this.fillCustomer(null, "", "", "", "", emptyAddress);
+    }
+
+    //Test avant ajout ou update
+    testEnterKey = (e) => {
+        if(componentsHelper.testEnter(e.keyCode) //Test de la touche entrée
+            && 
+            //Test champs tous remplis : verif(champs, tous vides?)
+            !(componentsHelper.verifyFieldsNotNull([this.state.firstName, this.state.lastName, this.state.active,
+                this.state.address, this.state.city, this.state.country, this.state.district, this.state.email,
+                this.state.phone], false)))
+            {
+
+            this.state.actorId ? this.updateActor() : this.createActor(); //Update/ Create
+        }
+    }
+
+    //Chargement des clients
+    loadCustomers(){
+        //Requête axios pour le chargement des acteurs
+        customerHelper.loadRequest()
+            .then((response)=>{
+                this.setState({customers: response.data}); //Mise à jour de la liste des acteurs
+                this.setState({pending: false}); //Arrêt du symbole chargement en cas d'update ou de création
+            }).catch((error)=>{
+                this.setState({pending: false}); //Arrêt du symbole chargement en cas d'update ou de création
+            });
+    }
+
+    //----- RENDU GENERAL ---------
+    render() {
+        return(
+            <div>
+
+                {/* Affichage des champs */}
+                {this.renderFields()}
+
+                <Paper>
+                    {/*------------- Tableau contenant les clients  ------------------*/}
+                    <Table fixedHeader={true} height="600px">
+
+                        {/*----- Header du tableau -------*/}
+                        <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+                            <TableRow>
+                                <TableHeaderColumn> ID         </TableHeaderColumn>
+                                <TableHeaderColumn> First Name </TableHeaderColumn>
+                                <TableHeaderColumn> Last Name  </TableHeaderColumn>
+                                <TableHeaderColumn> Email      </TableHeaderColumn>
+                                <TableHeaderColumn> Address    </TableHeaderColumn>
+                                <TableHeaderColumn> Phone      </TableHeaderColumn>
+                                <TableHeaderColumn>            </TableHeaderColumn>
+                            </TableRow>
+                        </TableHeader>
+
+                        {/*----- Contenu du tableau ------*/}
+                        <TableBody displayRowCheckbox={false}>
+
+                            {/* Affichage des clients */}
+                            {this.renderCustomers()}
+
+                        </TableBody>
+
+                    </Table>
+
+                </Paper>
+            </div>
+        );
+    }
+
+    //Lorsque le composant a été généré
     componentDidMount() {
-
-        this.loadCustomers();
-
+        this.loadCustomers(); //Chargement des clients
     }
 
 }

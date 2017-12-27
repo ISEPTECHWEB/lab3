@@ -1,20 +1,14 @@
 import React from 'react';
- 
-class Home extends React.Component {
 
+//Composant stateless ActorPage
 
-  render() {
-    return (
-      <div>
+const Home = () => (
+  <div>
         <p>
-
             Welcome to your management page
         </p>
+  </div>
+);
 
-
-      </div>
-    );
-  }
-}
  
 export default Home
